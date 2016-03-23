@@ -69,10 +69,10 @@ def autoexit_command(debugger, command, result, internal_dict):
             state = process.GetState()
 
         if state == lldb.eStateExited:
-            os._exit(process.GetExitStatus())
+            sys._exit(process.GetExitStatus())
         elif state == lldb.eStateStopped:
             debugger.HandleCommand('bt')
-            os._exit({exitcode_app_crash})
+            sys._exit({exitcode_app_crash})
 
         stdout = process.GetSTDOUT(1024)
         while stdout:
