@@ -53,9 +53,9 @@ def safequit_command(debugger, command, result, internal_dict):
 
         if state == lldb.eStateRunning:
             process.Detach()
-            os._exit(0)
+            sys.exit(0)
         elif state > lldb.eStateRunning:
-            os._exit(state)
+            sys.exit(state)
 
 def autoexit_command(debugger, command, result, internal_dict):
     process = lldb.target.process
@@ -69,10 +69,10 @@ def autoexit_command(debugger, command, result, internal_dict):
             state = process.GetState()
 
         if state == lldb.eStateExited:
-            sys._exit(process.GetExitStatus())
+            sys.exit(process.GetExitStatus())
         elif state == lldb.eStateStopped:
             debugger.HandleCommand('bt')
-            sys._exit({exitcode_app_crash})
+            sys.exit({exitcode_app_crash})
 
         stdout = process.GetSTDOUT(1024)
         while stdout:
